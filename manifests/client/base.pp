@@ -14,7 +14,10 @@ class munin::client::base {
     notify => Service['munin-node'],
     mode => 0644, owner => root, group => 0,
   }
-  munin::register { $::fqdn:
+  munin::register { $munin::cliest::host ? {
+      '*'      => $::fqdn,
+      default  => $munin::client::host
+    }:  
     host       => $munin::client::host ? {
       '*'      => $::fqdn,
       default  => $munin::client::host
