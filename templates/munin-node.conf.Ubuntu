@@ -9,7 +9,6 @@ background 1
 setseid 1
 
 # Which host/port to bind to;
-host <%= scope.lookupvar('munin::client::host') %>
 port <%= scope.lookupvar('munin::client::port') %>
 user root
 group root
