@@ -5,7 +5,7 @@
 class munin::host(
   $cgi_graphing = false,
   $export_tag = 'munin',
-  $notification_email = undef,
+  $notification_email = false,
 ) {
   package {"munin": ensure => installed, }
   include concat::setup
