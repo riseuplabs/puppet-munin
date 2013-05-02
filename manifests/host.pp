@@ -4,7 +4,8 @@
 
 class munin::host(
   $cgi_graphing = false,
-  $export_tag = 'munin'
+  $export_tag = 'munin',
+  $notification_email = false,
 ) {
   package {"munin": ensure => installed, }
   include concat::setup
@@ -13,13 +14,7 @@ class munin::host(
 
   concat::fragment{'munin.conf.header':
     target => '/etc/munin/munin.conf',
-    source => [ "puppet:///modules/site_munin/config/host/${::fqdn}/munin.conf.header",
-                "puppet:///modules/site_munin/config/host/munin.conf.header.${::operatingsystem}.${::lsbdistcodename}",
-                "puppet:///modules/site_munin/config/host/munin.conf.header.${::operatingsystem}",
-                "puppet:///modules/site_munin/config/host/munin.conf.header",
-                "puppet:///modules/munin/config/host/munin.conf.header.${::operatingsystem}.${::lsbdistcodename}",
-                "puppet:///modules/munin/config/host/munin.conf.header.${::operatingsystem}",
-                "puppet:///modules/munin/config/host/munin.conf.header" ],
+    content => template('munin/munin.conf.header.erb'),
     order => 05,
   }
 

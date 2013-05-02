@@ -18,9 +18,19 @@
     address ssh://<%= host %>/bin/nc localhost <%= port %>
 <% else -%>
     address <%= host %>
-    port <%= port %>
+    port <%= port -%>
 <% end -%>
 <% if config -%><% config.each do |val| -%> 
     <%= val -%>
+<% end -%><% end -%>
+<% if warnings.respond_to? :each then warnings.each do |plugin, field| -%>
+    <% if field.respond_to? :each then field.each do |fieldname, limits| %>
+    <%= plugin %>.<%= fieldname %>.warning <%= limits -%>
+    <% end -%><% end -%>
+<% end -%><% end -%>
+<% if critical.respond_to? :each then critical.each do |plugin, field| -%>
+    <% if field.respond_to? :each then field.each do |fieldname, limits| %>
+    <%= plugin %>.<%= fieldname %>.critical <%= limits -%>
+    <% end -%><% end -%>
 <% end -%><% end -%>
 
