@@ -28,6 +28,8 @@ tmpldir /etc/munin/templates
 <% if notification_email -%>
 contacts me
 contact.me.command mail -s "Munin notification ${var:group} :: ${var:host} :: ${var:graph_title}" <%= notification_email %>
+<% if always_notify -%>
 contact.me.always_send warning critical
+<% end -%>
 <% end -%>
 
