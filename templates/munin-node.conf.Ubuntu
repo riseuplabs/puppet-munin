@@ -9,7 +9,6 @@ background 1
 setseid 1
 
 # Which host/port to bind to;
-host <%= scope.lookupvar('munin::client::host') %>
 port <%= scope.lookupvar('munin::client::port') %>
 user root
 group root
@@ -27,7 +26,7 @@ ignore_file \.rpm(save|new)$
 # telnetting to localhost, port 4949
 #
 #host_name localhost.localdomain
-host_name <%= scope.lookupvar('::fqdn') %>
+host_name <%= scope.lookupvar('::fqdn') ? scope.lookupvar('::fqdn') : scope.lookupvar('munin::client::host') %>
 
 # A list of addresses that are allowed to connect.  This must be a
 # regular expression, due to brain damage in Net::Server, which
